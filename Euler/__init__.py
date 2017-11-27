@@ -1,1 +1,2 @@
-from factorize import factorize
+from Prime import factorize
+from String import palindromic
