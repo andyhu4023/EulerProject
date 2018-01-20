@@ -13,44 +13,25 @@ Find the sum of all creative integers less than or equal to 10121012.
 '''
 
 from time import time
+from math import log10
+from Euler import prime_under
 
 start = time()
 
-from math import log10
-def creative(a, b, c, bound=10**12):
-    result = list()
-    step1 = [(a ** b, c), (a ** c, b), (b ** a, c), (b ** c, a), (c ** a, b), (c ** b, a)]
-    #result += [i**j, j**i]
-    result += [i ** j for i, j in step1 if i<= 10**6 and j<= 10**6 and j*log10(i) <= 12]
-    result += [j ** i for i, j in step1 if i<= 10**6 and j<= 10**6 and i*log10(j) <= 12]
-    return set(result)
+prime = set(prime_under(10**6))
+non_prime = set(range(2, 10**6+1)) - prime
+prime = {x for x in prime if x <= 1000}
 
-# bound = 10**12* 1.0001
-#
-# creative_numbers = list()
-# #i = 2
-# for i in range(2, 10):
-#     for j in range(i, int(10**(6/i))+1):
-#         temp = creative(2, i, j, bound)
-#         print(temp)
-#         creative_numbers += temp
-# print('-------------')
-# for i in range(3, 10):
-#     for j in range(i, int(10**(4/i))+1):
-#         temp = creative(3, i, j, bound)
-#         print(temp)
-#         creative_numbers += temp
-#
-# print(10**12 in creative_numbers)
-# result = set(creative_numbers)
-# print(len(result))
-# print(sum(result) - 16)
+print('Finding primes use %f' %(time() - start))
+creative_number = list()
+for i in prime:
+    creative_number += [i ** j for j in range(4, int(12/log10(i))+1) if j in non_prime]
+for i in non_prime:
+    creative_number += [i ** j for j in range(2, int(12/log10(i))+1)]
 
-from Euler import prim
+result = sum(set(creative_number)) - 16
 
-for i in range(2,10**)
-
-#print('The answer is %d, it takes %f s.' %(result, time()-start))
+print('The answer is %d, it takes %f s.' %(result, time()-start))
 
 
 
